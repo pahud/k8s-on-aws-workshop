@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: traefik-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - 
+    #host: traefik.nginx.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: greeting-service
+          servicePort: 80
+  - 
+    #host: traefik.frontend.io
+    http:
+      paths:
+      - path: /caddy
+        backend:
+          serviceName: caddy-service
+          servicePort: 80

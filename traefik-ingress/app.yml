@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: greeting-service
+spec: 
+  selector: 
+    app: greeting-pod
+  ports:
+    - name: web
+      port: 80
+      targetPort: 8080
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: greeting-rs
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: greeting-pod
+    spec:
+      containers:
+      - name: greeting-pod
+        image: pahud/greeting:latest
+        env:
+        - name: MY_TYPE
+          value: greeting
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: caddy-service
+spec: 
+  selector: 
+    app: caddy-pod
+  ports:
+    - name: web
+      port: 80
+      targetPort: 2015
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: caddy-rs
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: caddy-pod
+    spec:
+      containers:
+      - name: caddy-pod
+        image: abiosoft/caddy
+        env:
+        - name: MY_TYPE
+          value: caddy
+        ports:
+        - containerPort: 2015
