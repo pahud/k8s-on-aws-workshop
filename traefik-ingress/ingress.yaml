@@ -9,7 +9,7 @@ metadata:
 spec:
   rules:
   - 
-    #host: traefik.nginx.io
+    #host: greeting.xxx.io
     http:
       paths:
       - path: /
@@ -17,10 +17,18 @@ spec:
           serviceName: greeting-service
           servicePort: 80
   - 
-    #host: traefik.frontend.io
+    #host: caddy.xxx.io
     http:
       paths:
       - path: /caddy
         backend:
           serviceName: caddy-service
+          servicePort: 80
+  - 
+    #host: nginx.xxx.io
+    http:
+      paths:
+      - path: /nginx
+        backend:
+          serviceName: nginx-service
           servicePort: 80
