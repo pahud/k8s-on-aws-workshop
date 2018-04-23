@@ -47,3 +47,18 @@ $ curl http://<YOUR_ELB_HOSTNAME>/nginx
 
 
 
+## Traffic-ingress with ALB
+
+This is a hybrid 8S cluster with Traefik and ALB integration with some benefits:
+
+1. nodeGroup provisioned by **ASG(Autoscaling Group)** and **SpotFleet**
+2. Nodes provisioned by ASG will have a node Label **asgnode=true**
+3. ASG will register all nodes to a specific Target Group
+4. Traefik running as DemonSet with nodeSelector **asgnode=true**, which means:
+   1. Every node provisioned by ASG will have a Traefik running as DaemonSet because of the node label selector.
+   2. Every node with Traefik running as DaemonSet and exposed as NodePort will be auto registered onto Target Group.
+   3. ALB associating the Target Group and all traffic will be routed through ALB, TargetGroup, NodePort, Traefik(DaemonSet pod) and then being L7 balanced to other K8S services within the same cluster either with host-based or path-based policies defined in the Traefic ingress resource.
+   4. ALB will take care the HTTPS SSL/TLS termination, hence offload the overhead.
+   5. Native integration between AWS WAF and ALB .
+
+![](images/aws-traefik-alb.png)
