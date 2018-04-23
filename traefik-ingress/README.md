@@ -49,7 +49,7 @@ $ curl http://<YOUR_ELB_HOSTNAME>/nginx
 
 ## Traefik-ingress with ALB
 
-This is a hybrid 8S cluster with Traefik and ALB integration with some benefits:
+This is a hybrid K8S cluster with Traefik and ALB integration with some benefits:
 
 1. nodeGroup provisioned by **ASG(Autoscaling Group)** and **SpotFleet**
 2. Nodes provisioned by ASG will have a node Label **asgnode=true**
