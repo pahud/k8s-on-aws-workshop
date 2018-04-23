@@ -47,7 +47,7 @@ $ curl http://<YOUR_ELB_HOSTNAME>/nginx
 
 
 
-## Traffic-ingress with ALB
+## Traefik-ingress with ALB
 
 This is a hybrid 8S cluster with Traefik and ALB integration with some benefits:
 
