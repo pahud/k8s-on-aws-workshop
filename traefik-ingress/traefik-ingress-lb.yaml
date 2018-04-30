@@ -37,5 +37,5 @@ spec:
         - --web
         - --web.address=:8580
         - --kubernetes
-      # nodeSelector:
-      #   edgenode: "true"
+      #nodeSelector:
+         #asgnode: "true"
